@@ -1,3 +1,18 @@
+🎨 ColorSense
+ColorSense is an image-based tool for people with color vision deficiencies. Just upload a photo, and it:
+
+Detects red, green, and blue regions
+
+Shows their color names and hex codes
+
+Displays the image’s dominant color
+
+Lets you choose a colorblindness mode (Protanopia, Deuteranopia, Tritanopia)
+
+Shows a remapped image with easier-to-see colors
+
+No downloads. Just clear, color-friendly visuals
+
 <img width="171" height="309" alt="image" src="https://github.com/user-attachments/assets/e0adce3c-d961-425d-8ed0-f53c2c9d9c82" />
 <img width="232" height="509" alt="image" src="https://github.com/user-attachments/assets/5eb52470-71d1-4037-b718-a7e5d28478d0" />
 <img width="158" height="126" alt="image" src="https://github.com/user-attachments/assets/e134f6a9-d792-4dd7-8718-baa24f314d38" />
