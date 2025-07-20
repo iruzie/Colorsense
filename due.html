@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dueteranopia-Friendly Image Uploader</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('/dueteranopia/blue.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: transparent; /* Neutral white background */
+            color: #333333; /* Dark text for high contrast */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-10px); /* Slight hover effect */
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffffff; /* Dark text for contrast */
+        }
+        input[type="file"] {
+            background-color: #316df0; /* Red background for button */
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"]:hover {
+            background-color: #7ac5f8; /* Slightly darker red on hover */
+            transform: translateY(-3px); /* Slight hover effect */
+        }
+        input[type="file"]:active {
+            transform: translateY(2px); /* Click effect */
+        }
+        #preview {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 15px;
+            display: none;
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border: 4px solid #4CAF50; /* Green border for contrast */
+            transition: opacity 0.3s ease;
+        }
+
+        /* Left Sidebar */
+        .left-options-container {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+        }
+
+        /* Right Sidebar */
+        .right-options-container {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+        }
+
+        .option-box {
+            background-color: #F5F5F5;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .option-box:hover {
+            transform: translateX(5px); /* Hover effect */
+        }
+
+        .option-box h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #2131c2; /* Red text for titles */
+        }
+        .submit-button {
+            background-color: #123cc4; /* Red background */
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .submit-button:hover {
+            background-color: #284dc6; /* Slightly darker red on hover */
+            transform: translateY(-3px); /* Slight hover effect */
+        }
+        .submit-button:active {
+            transform: translateY(2px); /* Click effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Your Image</h2>
+        <input type="file" id="fileInput" accept="image/*">
+        <br>
+        <button type="submit" class="submit-button">Submit</button>
+        </form>
+        <img id="preview" alt="Uploaded Image Preview">
+    </div>
+
+    <!-- Left Sidebar for other options -->
+    <div class="left-options-container">
+        <div class="option-box">
+            <h4>Color Code and Name</h4>
+        </div>
+        <div class="option-box">
+            <h4>Uses</h4>
+        </div>
+        <div class="option-box">
+            <h4>Significance</h4>
+        </div>
+        <div class="option-box">
+            <h4>Mood Mapping</h4>
+        </div>
+    </div>
+
+    <!-- Right Sidebar for 'Identify Object' and 'Dominant Color Mapping' -->
+    <div class="right-options-container">
+        <div class="option-box">
+            <h4>Identify Object</h4>
+        </div>
+        <div class="option-box">
+            <h4>Dominant Color Mapping</h4>
+        </div>
+        <div class="option-box">
+            <h4>Enhanced Image</h4>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('preview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+        
+                    // Send to backend
+                    uploadImage(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        function uploadImage(file) {
+            let formData = new FormData();
+            formData.append('file', file);
+        
+            fetch('http://127.0.0.1:5000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Detected Colors:', data.colors);
+                document.getElementById('result').innerText = "Detected Color: " + data.colors.average_color;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+    </script>
+</body>
+</html>
+
