@@ -6,6 +6,8 @@ Detects red, green, and blue regions
 Shows their color names and hex codes
 
 Displays the image’s dominant color
+Shows the mood mapping.
+Shows the use mapping.
 
 Lets you choose a colorblindness mode (Protanopia, Deuteranopia, Tritanopia)
 
